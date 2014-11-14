@@ -66,7 +66,8 @@ cat > /usr/local/owp-install/firstboot.sh << EOF
 
 echo "First boot... Install OpenVZ Web Panel"
 /usr/local/owp-install/ai.sh
-sed -i -e "s/\/usr\/local\/owp-install\/firstboot.sh//" /etc/rc.local
+rm /etc/rc.local
+mv /etc/rc.local.backup /etc/rc.local
 rm -rf /usr/local/owp-install
 
 EOF
@@ -75,7 +76,13 @@ EOF
 chmod +x /usr/local/owp-install/firstboot.sh
 
 # 6.5 Arrancar el següent arranc
-sed -i -e "s/^DEVICE=/\/usr\/local\/owp-install\/firstboot.sh\nDEVICE=/" /etc/rc.local
+mv /etc/rc.local /etc/rc.local.backup
+cat > /etc/rc.local << EOF
+#!/bin/sh -e
+
+/usr/local/owp-install/firstboot.sh
+exit 0
+EOF
 
 # 7 Reboot
 reboot
