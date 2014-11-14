@@ -5,12 +5,12 @@ HW=$(arch)
 [ "$HW" == "i686" ] && HW="i386"
 [ "$HW" == "i486" ] && HW="i386"
 
-[ $(id -u) == 0 ] && {
+[ $(id -u) == 0 ] || {
 	echo "Please, run as root.";
 	exit;
 } 
 
-[ "$HW" == "amd64" -o "$HW" == "i386" ] && {
+[ "$HW" == "amd64" -o "$HW" == "i386" ] || {
 	echo "Only install in intel platform.";
 	exit;
 }
@@ -39,17 +39,16 @@ ruby-switch --set ruby1.8
 cd packages
 
 # 3.1 install .deb
-dpkg --install linux-image-openvz-686_042+1_i386.deb ploop_1.12.1-1_i386.deb vzctl_4.7.2-1_i386.deb vzquota_3.1-1_i386.deb vzstats_0.5.3-1_all.deb libploop1_1.12.1-1_i386.deb linux-image-2.6.32-openvz-686_042stab085.17_i386.deb libcgroup1_0.38-1_i386.deb parted_2.3-12_i386.deb libparted0debia
-n1_2.3-12_i386.deb
+dpkg --install linux-image-openvz-686_042+1_i386.deb ploop_1.12.1-1_i386.deb vzctl_4.7.2-1_i386.deb vzquota_3.1-1_i386.deb vzstats_0.5.3-1_all.deb libploop1_1.12.1-1_i386.deb linux-image-2.6.32-openvz-686_042stab085.17_i386.deb libcgroup1_0.38-1_i386.deb parted_2.3-12_i386.deb libparted0debian1_2.3-12_i386.deb
 
 # 3.2 Sortir del directori de paquets
 cd ..
 
 # 4. Update
-apt-get update && apt-get upgrade
+apt-get -y update && apt-get -y upgrade
 
 # 5. Canviar grub
-sed -i -e 's/GRUB_DEFAULT=0/GRUB_DEFAULT=2/' grub
+sed -i -e 's/GRUB_DEFAULT=0/GRUB_DEFAULT=2/' /etc/default/grub
 update-grub
 
 # Aquí hem de rebootar per poder 
