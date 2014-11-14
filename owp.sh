@@ -83,6 +83,7 @@ cat > /etc/rc.local << EOF
 /usr/local/owp-install/firstboot.sh
 exit 0
 EOF
+chmod +x /etc/rc.local
 
 # 7 Reboot
 reboot
