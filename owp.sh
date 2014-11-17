@@ -81,6 +81,7 @@ cat > /etc/rc.local << EOF
 #!/bin/sh -e
 
 /usr/local/owp-install/firstboot.sh
+[ ! -f /etc/rc.local.backup ] && /etc/rc.local
 exit 0
 EOF
 chmod +x /etc/rc.local
