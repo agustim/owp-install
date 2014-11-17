@@ -4,7 +4,8 @@ GH_USER=agustim
 GH_REPO=owp-install
 
 cd /tmp
+rm -rf ${GH_REPO}-master/ ${GH_REPO}.zip
 curl "https://codeload.github.com/${GH_USER}/${GH_REPO}/zip/master" > ${GH_REPO}.zip
 unzip ${GH_REPO}.zip 
 cd ${GH_REPO}-master/
-owp.sh
+./owp.sh
